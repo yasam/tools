@@ -1,0 +1,7 @@
+Host airties.com
+	IdentityFile ~/.ssh/id_rsa
+
+Host github.com
+	IdentityFile ~/.ssh/id_rsa_gmail
+
+
