@@ -1,0 +1,13 @@
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	visual = !gitk
+	graph = log --graph
+	undo-commit = reset --soft HEAD^
+	tagcommit = rev-list -1
+	contains = branch -a --contains
+	branchdate = !git for-each-ref --sort='-authordate' --format='%(refname)%09%(authordate)' refs/heads | sed -e 's-refs/heads/--'
