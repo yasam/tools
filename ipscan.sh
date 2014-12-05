@@ -8,22 +8,40 @@ fi
 FROM=$1
 TO=$2
 
-BASE=`echo $FROM | cut -d '.' -f1,2,3`
-START=`echo $FROM | cut -d '.' -f4`
-END=`echo $TO | cut -d '.' -f4`
+dec2ip () {
+    local ip dec=$@
+    for e in {3..0}
+    do
+        ((octet = dec / (256 ** e) ))
+        ((dec -= octet * 256 ** e))
+        ip+=$delim$octet
+        delim=.
+    done
+    echo $ip
+}
 
-IDX=$START
-CNT=0
 
-echo pinging from  $BASE.$START to $BASE.$END
+ip2dec () {
+    local a b c d ip=$@
+    IFS=. read -r a b c d <<< "$ip"
+    dec=$((a * 256 ** 3 + b * 256 ** 2 + c * 256 + d))
+    echo $dec
+}
+
+START=`ip2dec $FROM`
+END=`ip2dec $TO`
+
+
 for (( IDX=$START; IDX <= $END; IDX++ ))
 do
-    IP=$BASE.$IDX
+    IP=`dec2ip $IDX`
+    echo -n "PINGING $IP ..."
     ping $IP -c 1 -W 1 > /dev/null
-    
     if [ $? == 0 ]; then
-	echo $IP foound.
+	echo "FOUND"
 	CNT=$((CNT+1))
+    else
+	echo ""
     fi
 
 done
