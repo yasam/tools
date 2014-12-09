@@ -21,6 +21,7 @@ cp $TEMPLATE_DIR/.project ./
 cp $TEMPLATE_DIR/.cproject ./
 
 echo "Replacing project name with : $NAME"
-cat .project | sed 's/@@__NAME__@@/'$NAME'/g' > .project
+cat .project | sed 's/@@__NAME__@@/'$NAME'/g' > .tmpproject
+mv .tmpproject .project
 
 
