@@ -35,4 +35,6 @@ create_br br0 192.168.2.2
 
 add_if br0 eth0
 add_if br0 eth1
+#add_if br0 eth2
+
 
